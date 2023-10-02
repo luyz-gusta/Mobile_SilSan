@@ -1,5 +1,8 @@
 package com.example.avicultura_silsan.screen
 
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,12 +36,17 @@ import com.example.avicultura_silsan.components.login.DefaultButton
 import com.example.avicultura_silsan.components.login.Form
 import com.example.avicultura_silsan.components.login.Header
 import com.example.avicultura_silsan.components.login.TextNotCont
+import com.example.avicultura_silsan.repository.LoginRepository
+import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 @Composable
 fun LoginScreen(
     navController: NavController,
     lifecycleScope: LifecycleCoroutineScope?
 ) {
+    val context = LocalContext.current
+
     var emailState by remember {
         mutableStateOf("")
     }
@@ -72,7 +81,7 @@ fun LoginScreen(
                 senhaState,
                 onEmailChange = { emailState = it },
                 onSenhaChange = { senhaState = it },
-                null
+                navController
             )
             Spacer(
                 modifier = Modifier
@@ -81,13 +90,77 @@ fun LoginScreen(
             DefaultButton(
                 text = "Entrar",
                 onClick = {
-                    // Lógica de clique do botão
+                    login(
+                        emailState,
+                        senhaState,
+                        lifecycleScope!!,
+                        context,
+                        navController
+                    )
                 }
             )
             TextNotCont(navController = null)
         }
     }
 }
+
+fun login(
+    email: String,
+    senha: String,
+    lifecycleScope: LifecycleCoroutineScope,
+    context: Context,
+    navController: NavController
+){
+
+    if(email == "" || senha == ""){
+        Toast.makeText(context, "Email ou senha não foi inserido", Toast.LENGTH_LONG).show()
+    }else {
+        val loginRepository = LoginRepository()
+
+        lifecycleScope.launch {
+            val response = loginRepository.loginUsuario(email, senha)
+
+            if(response.isSuccessful){
+
+                val jsonString = response.body().toString()
+                val jsonObject = JSONObject(jsonString)
+
+                val cliente = jsonObject.getJSONObject("cliente")
+                val nome = cliente.getString("nome")
+
+                Log.e("LOGIN - SUCESS - 201", "login: ${response.body()}")
+                Toast.makeText(context, "Bem vindo $nome ao nosso sistema", Toast.LENGTH_SHORT).show()
+
+                navController.navigate("create_account")
+            }else{
+
+                when(response.code()){
+
+                    404 -> {
+                        Log.e("LOGIN - ERROR - 404", "login: ${response.errorBody()?.string()}")
+
+                        Toast.makeText(
+                            context, "O EMAIL OU SENHA INFORMADO NÃO É VALIDADO", Toast.LENGTH_LONG
+                        ).show()
+                    }
+
+                    500 -> {
+                        Log.e("LOGIN - ERROR - 500", "login: ${response.errorBody()?.string()}")
+
+                        Toast.makeText(
+                            context,
+                            "SERVIDOR INDISPONIVEL NO MOMENTO, TENTE MAIS TARDE",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable

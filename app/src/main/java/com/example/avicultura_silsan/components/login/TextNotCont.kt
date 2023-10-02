@@ -13,7 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -32,7 +34,7 @@ fun TextNotCont(
         Text(
             text = "Não tem conta?",
             style = TextStyle(
-                fontSize = 12.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight(600),
                 color = Color(0xFFFFFFFF),
             )
@@ -41,9 +43,10 @@ fun TextNotCont(
         Text(
             text = "Cadastre-se aqui.",
             style = TextStyle(
-                fontSize = 12.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight(600),
-                color = colorResource(id = R.color.orange_creme)
+                color = colorResource(id = R.color.black),
+                textDecoration = TextDecoration.Underline
             ),
             modifier = Modifier
                 .clickable {

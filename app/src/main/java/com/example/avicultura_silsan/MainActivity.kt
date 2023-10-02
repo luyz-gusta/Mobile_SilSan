@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.avicultura_silsan.screen.CreateAccountScreen
 import com.example.avicultura_silsan.screen.LoginScreen
 import com.example.avicultura_silsan.ui.theme.AviculturaSilsanTheme
 
@@ -25,6 +26,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = Color(255,255,255)
                 ) {
+
                     val navController = rememberNavController()
 
                     NavHost(
@@ -36,7 +38,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable("create_account") {
-                            LoginScreen(navController, lifecycleScope = lifecycleScope)
+                            CreateAccountScreen(navController = navController, lifecycleScope = lifecycleScope)
                         }
 
                     }
