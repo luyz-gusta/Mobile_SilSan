@@ -22,7 +22,7 @@ import androidx.navigation.NavController
 
 @Composable
 fun TextNotCont(
-    navController: NavController?
+    navController: NavController
 ) {
     Row(
         modifier = Modifier

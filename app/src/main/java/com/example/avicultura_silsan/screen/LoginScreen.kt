@@ -102,7 +102,7 @@ fun LoginScreen(
                     )
                 }
             )
-            TextNotCont(navController = null)
+            TextNotCont(navController = navController)
         }
     }
 }
