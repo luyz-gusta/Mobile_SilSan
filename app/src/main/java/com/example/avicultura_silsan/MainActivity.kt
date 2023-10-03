@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
 
                     NavHost(
-                        navController = navController, startDestination = "login"
+                        navController = navController, startDestination = "create_account"
                     ){
 
                         composable("login") {

@@ -62,7 +62,7 @@ fun Header(){
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(90.dp),
+                .height(80.dp),
         ) {
             Text(
                 text = "Criar Conta",

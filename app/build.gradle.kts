@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -47,6 +48,13 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    kotlin{
+        jvmToolchain(18)
+    }
+}
+
+tasks.withType(type = com.google.devtools.ksp.gradle.KspTaskJvm::class) {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 }
 
 dependencies {
@@ -116,4 +124,9 @@ dependencies {
 
 // Dependência para Hilt (para injeção de dependência no Jetpack Compose)
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
+
+    // ROOM DEPENDENCIES (SQLite)
+    implementation ("androidx.room:room-runtime:2.5.2")
+    annotationProcessor ("androidx.room:room-compiler:2.5.2")
+    ksp("androidx.room:room-compiler:2.5.2")
 }

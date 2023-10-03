@@ -36,7 +36,10 @@ import com.example.avicultura_silsan.components.login.DefaultButton
 import com.example.avicultura_silsan.components.login.Form
 import com.example.avicultura_silsan.components.login.Header
 import com.example.avicultura_silsan.components.login.TextNotCont
+import com.example.avicultura_silsan.functions.deleteUserSQLite
+import com.example.avicultura_silsan.functions.saveLogin
 import com.example.avicultura_silsan.repository.LoginRepository
+import com.example.avicultura_silsan.sqlite_repository.UserRepository
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 
@@ -126,10 +129,47 @@ fun login(
                 val jsonObject = JSONObject(jsonString)
 
                 val cliente = jsonObject.getJSONObject("cliente")
+                val id_client = cliente.getString("id")
                 val nome = cliente.getString("nome")
+                val telefone = cliente.getString("telefone")
+                val dataNascimento = cliente.getString("data_nascimento")
+
+                val user = jsonObject.getJSONObject("usuario")
+                val email = user.getString("email")
+                val senha = user.getString("senha")
+                val id_user = user.getString("id")
 
                 Log.e("LOGIN - SUCESS - 201", "login: ${response.body()}")
                 Toast.makeText(context, "Bem vindo $nome ao nosso sistema", Toast.LENGTH_SHORT).show()
+
+                if(UserRepository(context).findUsers().isEmpty()){
+
+                    saveLogin(
+                        context,
+                        id_user = id_user.toInt(),
+                        id_client = id_client.toInt(),
+                        email = email,
+                        senha = senha,
+                        nome = nome,
+                        telefone,
+                        dataNascimento
+                    )
+
+                }else{
+                    deleteUserSQLite(context)
+
+                    saveLogin(
+                        context,
+                        id_user = id_user.toInt(),
+                        id_client = id_client.toInt(),
+                        email = email,
+                        senha = senha,
+                        nome = nome,
+                        telefone,
+                        dataNascimento
+                    )
+
+                }
 
                 navController.navigate("create_account")
             }else{
