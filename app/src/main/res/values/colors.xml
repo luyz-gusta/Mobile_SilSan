@@ -10,4 +10,5 @@
     <color name="orange_default">#FF5C00</color>
     <color name="cinza">#9F9898</color>
     <color name="orange_creme">#FF9636</color>
+    <color name="bg">#FD6D05</color>
 </resources>
