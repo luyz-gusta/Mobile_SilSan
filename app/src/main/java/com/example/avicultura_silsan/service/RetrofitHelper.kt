@@ -17,4 +17,8 @@ object RetrofitHelper {
         return retrofitFactory.create(LoginService::class.java)
     }
 
+    fun postCadastroService(): CadastroService{
+        return retrofitFactory.create(CadastroService::class.java)
+    }
+
 }
