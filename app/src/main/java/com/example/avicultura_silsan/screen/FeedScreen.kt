@@ -11,12 +11,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.avicultura_silsan.components.feed.HeaderFeed
-import com.example.avicultura_silsan.components.feed.ListProdutos
+import com.example.avicultura_silsan.components.feed.ListCard
+import com.example.avicultura_silsan.view_model.AnuncioViewModel
 
-@Preview
 @Composable
 fun FeedScreen(
+    navController: NavController,
+    viewModel: AnuncioViewModel
 ) {
     val context = LocalContext.current
 
@@ -25,9 +28,7 @@ fun FeedScreen(
             .fillMaxSize()
     ) {
         HeaderFeed {}
+        ListCard(navController, viewModel)
 
-        Spacer(modifier = Modifier.height(15.dp))
-
-        ListProdutos()
     }
 }

@@ -9,13 +9,16 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.avicultura_silsan.screen.AnnouncementScreen
 import com.example.avicultura_silsan.screen.CreateAccountScreen
 import com.example.avicultura_silsan.screen.FeedScreen
 import com.example.avicultura_silsan.screen.LoginScreen
 import com.example.avicultura_silsan.ui.theme.AviculturaSilsanTheme
+import com.example.avicultura_silsan.view_model.AnuncioViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,9 +32,10 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                     val navController = rememberNavController()
+                    val anuncioViewModel = viewModel<AnuncioViewModel>()
 
                     NavHost(
-                        navController = navController, startDestination = "login"
+                        navController = navController, startDestination = "feed"
                     ){
 
                         composable("login") {
@@ -43,7 +47,11 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable("feed") {
-                            FeedScreen()
+                            FeedScreen(navController = navController, viewModel = anuncioViewModel)
+                        }
+
+                        composable("anuncio") {
+                            AnnouncementScreen()
                         }
 
                     }
