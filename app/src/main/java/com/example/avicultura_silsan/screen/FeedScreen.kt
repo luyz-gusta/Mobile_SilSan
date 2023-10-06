@@ -27,7 +27,9 @@ fun FeedScreen(
         Modifier
             .fillMaxSize()
     ) {
-        HeaderFeed {}
+        HeaderFeed{
+            navController.navigate("profile")
+        }
         ListCard(navController, viewModel)
 
     }

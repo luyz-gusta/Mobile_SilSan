@@ -67,7 +67,7 @@ fun HeaderProfile() {
         ) {
             IconButton(
                 onClick = {
-                   // navController.navigate("navigation_home_bar")
+                    // navController.navigate("navigation_home_bar")
                 },
                 modifier = Modifier
                     .height(64.dp)
@@ -83,61 +83,11 @@ fun HeaderProfile() {
                     contentDescription = ""
                 )
             }
-            Column(
-                verticalArrangement = Arrangement.spacedBy(18.dp, Alignment.Top),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Box(
-                    modifier = Modifier.size(100.dp),
-                    contentAlignment = Alignment.BottomEnd
-                ) {
-                    Card(
-                        modifier = Modifier
-                            .size(100.dp),
-                        shape = CircleShape,
-                        border = BorderStroke(
-                            width = 2.dp,
-                            Brush.horizontalGradient(
-                                listOf(
-                                    colorResource(id = R.color.purple_200),
-                                    Color.White
-                                )
-                            )
-                        )
-                    ) {
-                        Image(
-                            painter = painterResource(
-                                id = R.drawable.susanna_profile
-                            ),
-                            contentDescription = "",
-                            modifier = Modifier.size(64.dp)
-                        )
-                    }
-                    Icon(
-                        imageVector = camera,
-                        contentDescription = "",
-                        modifier = Modifier
-                            .offset(x = 5.dp, y = 5.dp)
-                            .size(28.dp),
-                    )
-                }
 
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.Top),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
+            Text(
+                text = "Perfil"
+            )
 
-                    Text(
-                        text = user.nome,
-                        fontSize = 20.sp,
-                        fontFamily = FontFamily(Font(R.font.intermedium)),
-                        fontWeight = FontWeight(600),
-                        color = Color(0xFF000000),
-                    )
-
-                }
-
-            }
             IconButton(
                 onClick = {
                     //navController.navigate("EditUser")
@@ -161,6 +111,8 @@ fun HeaderProfile() {
                     contentDescription = ""
                 )
             }
+
         }
+
     }
 }

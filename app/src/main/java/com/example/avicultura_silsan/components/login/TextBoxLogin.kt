@@ -11,6 +11,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,6 +37,9 @@ fun TextBoxScreen(label : String, valor: String, aoMudar: (String) -> Unit ) {
             focusedBorderColor = Color.White,
             unfocusedBorderColor = Color.White,
             cursorColor = Color.Black
+        ),
+        textStyle = TextStyle(
+            color = Color.Black
         )
     )
 }

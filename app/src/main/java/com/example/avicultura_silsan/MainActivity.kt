@@ -17,6 +17,7 @@ import com.example.avicultura_silsan.screen.AnnouncementScreen
 import com.example.avicultura_silsan.screen.CreateAccountScreen
 import com.example.avicultura_silsan.screen.FeedScreen
 import com.example.avicultura_silsan.screen.LoginScreen
+import com.example.avicultura_silsan.screen.ProfileScreen
 import com.example.avicultura_silsan.ui.theme.AviculturaSilsanTheme
 import com.example.avicultura_silsan.view_model.AnuncioViewModel
 
@@ -35,7 +36,7 @@ class MainActivity : ComponentActivity() {
                     val anuncioViewModel = viewModel<AnuncioViewModel>()
 
                     NavHost(
-                        navController = navController, startDestination = "feed"
+                        navController = navController, startDestination = "login"
                     ){
 
                         composable("login") {
@@ -52,6 +53,10 @@ class MainActivity : ComponentActivity() {
 
                         composable("anuncio") {
                             AnnouncementScreen()
+                        }
+
+                        composable("profile") {
+                            ProfileScreen()
                         }
 
                     }
