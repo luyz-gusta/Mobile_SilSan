@@ -29,7 +29,14 @@ import coil.compose.AsyncImage
 
 @Preview
 @Composable
-fun Card() {
+fun Card(
+//    nome: String,
+//    descricao: String,
+//    peso: Double,
+//    precoOriginal: Double,
+//    precoDesconto: Double
+//    urlImagem: String
+) {
     Column(
         Modifier
             .width(180.dp)

@@ -171,7 +171,7 @@ fun login(
 
                 }
 
-                navController.navigate("create_account")
+                navController.navigate("feed")
             }else{
 
                 when(response.code()){

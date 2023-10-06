@@ -1,0 +1,12 @@
+package com.example.avicultura_silsan.screen
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
+
+@Preview
+@Composable
+fun ProfileScreen() {
+
+
+
+}
