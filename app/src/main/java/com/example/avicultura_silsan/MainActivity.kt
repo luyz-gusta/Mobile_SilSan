@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
                     val anuncioViewModel = viewModel<AnuncioViewModel>()
 
                     NavHost(
-                        navController = navController, startDestination = "login"
+                        navController = navController, startDestination = "profile"
                     ){
 
                         composable("login") {

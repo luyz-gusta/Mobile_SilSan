@@ -3,6 +3,7 @@ package com.example.avicultura_silsan.components.profile
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,16 +37,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.avicultura_silsan.R
 import com.example.avicultura_silsan.sqlite_repository.UserRepository
 
-@Preview
 @Composable
-fun HeaderProfile() {
-
-    var icons = Icons.Default.ArrowBack
-
-    var camera = Icons.Default.AddAPhoto
+fun HeaderProfile(
+    onClick: () -> Unit
+) {
 
     val context = LocalContext.current
 
@@ -57,62 +56,40 @@ fun HeaderProfile() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp)
-            .padding(top = 32.dp),
-        horizontalArrangement = Arrangement.SpaceAround,
+            .height(100.dp)
+            .padding(15.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(43.dp, Alignment.Start),
             verticalAlignment = Alignment.Top,
         ) {
-            IconButton(
-                onClick = {
-                    // navController.navigate("navigation_home_bar")
-                },
+            Image(
+                painter = painterResource(id = R.drawable.arrow_back),
+                contentDescription = "seta voltar",
                 modifier = Modifier
-                    .height(64.dp)
-                    .width(64.dp)
-                    .border(
-                        width = 1.dp,
-                        color = Color(0xFFCECECE),
-                        shape = RoundedCornerShape(size = 8.dp)
-                    )
-            ) {
-                Icon(
-                    imageVector = icons,
-                    contentDescription = ""
-                )
-            }
-
-            Text(
-                text = "Perfil"
+                    .size(50.dp)
+                    .clickable {
+                        onClick()
+                    }
             )
-
-            IconButton(
-                onClick = {
-                    //navController.navigate("EditUser")
-                },
-                modifier = Modifier
-                    .height(64.dp)
-                    .width(64.dp)
-                    .border(
-                        width = 1.dp,
-                        color = Color(0xFFCECECE),
-                        shape = RoundedCornerShape(size = 8.dp)
-                    )
-            ) {
-                Image(
-                    modifier = Modifier
-                        .height(22.dp)
-                        .width(25.dp),
-                    painter = painterResource(
-                        id = R.drawable.editar
-                    ),
-                    contentDescription = ""
-                )
-            }
-
         }
+        Text(
+            text = "Perfil",
+            fontSize = 20.sp,
+            fontFamily = FontFamily(Font(R.font.intermedium)),
+            fontWeight = FontWeight(600),
+            color = Color.Black
+        )
 
+        Image(
+            modifier = Modifier
+                .size(60.dp),
+            painter = painterResource(
+                id = R.drawable.logo_dog
+            ),
+            contentDescription = ""
+        )
     }
 }
