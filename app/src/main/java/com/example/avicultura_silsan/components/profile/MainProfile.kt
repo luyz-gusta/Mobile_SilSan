@@ -2,8 +2,6 @@ package com.example.avicultura_silsan.components.profile
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,15 +15,16 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.avicultura_silsan.R
 import com.example.avicultura_silsan.universal.ButtonDefault
+import com.example.avicultura_silsan.view_model.UserViewModel
 
-@Preview
 @Composable
-fun MainProfile() {
+fun MainProfile(
+    viewModel: UserViewModel
+) {
     Column(
         modifier = Modifier
             .height(500.dp),
@@ -42,7 +41,7 @@ fun MainProfile() {
             ),
             textAlign = TextAlign.Start
         )
-        FormProfile()
+        FormProfile(viewModel)
 
         Column(
             modifier = Modifier

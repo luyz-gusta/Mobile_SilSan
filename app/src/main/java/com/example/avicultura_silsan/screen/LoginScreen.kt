@@ -40,13 +40,15 @@ import com.example.avicultura_silsan.functions.deleteUserSQLite
 import com.example.avicultura_silsan.functions.saveLogin
 import com.example.avicultura_silsan.repository.LoginRepository
 import com.example.avicultura_silsan.sqlite_repository.UserRepository
+import com.example.avicultura_silsan.view_model.UserViewModel
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 @Composable
 fun LoginScreen(
     navController: NavController,
-    lifecycleScope: LifecycleCoroutineScope?
+    lifecycleScope: LifecycleCoroutineScope?,
+    viewModel: UserViewModel
 ) {
     val context = LocalContext.current
 
@@ -93,7 +95,8 @@ fun LoginScreen(
                         senhaState,
                         lifecycleScope!!,
                         context,
-                        navController
+                        navController,
+                        viewModel = viewModel
                     )
                 }
             )
@@ -107,7 +110,8 @@ fun login(
     senha: String,
     lifecycleScope: LifecycleCoroutineScope,
     context: Context,
-    navController: NavController
+    navController: NavController,
+    viewModel: UserViewModel
 ){
 
     if(email == "" || senha == ""){
@@ -124,7 +128,7 @@ fun login(
                 val jsonObject = JSONObject(jsonString)
 
                 val cliente = jsonObject.getJSONObject("cliente")
-                val id_client = cliente.getString("id")
+                val id_client = cliente.getInt("id")
                 val nome = cliente.getString("nome")
                 val telefone = cliente.getString("telefone")
                 val dataNascimento = cliente.getString("data_nascimento")
@@ -132,17 +136,33 @@ fun login(
                 val user = jsonObject.getJSONObject("usuario")
                 val email = user.getString("email")
                 val senha = user.getString("senha")
-                val id_user = user.getString("id")
+                val id_user = user.getInt("id")
+                val id_status_usuario = user.getInt("id_status_usuario")
 
                 Log.e("LOGIN - SUCESS - 201", "login: ${response.body()}")
+                Log.e("User", "login: ${user}")
+                Log.e("Client", "login: ${cliente}")
                 Toast.makeText(context, "Bem vindo $nome ao nosso sistema", Toast.LENGTH_SHORT).show()
+
+                viewModel.id_cliente = id_client
+                viewModel.nome = nome
+                viewModel.telefone = telefone
+                viewModel.data_nascimento = dataNascimento
+
+                Log.e("DN", "login: $dataNascimento", )
+
+                viewModel.id_usuario = id_user
+                viewModel.email = email
+                viewModel.senha = senha
+
+                viewModel.id_status_usuario = id_status_usuario
 
                 if(UserRepository(context).findUsers().isEmpty()){
 
                     saveLogin(
                         context,
-                        id_user = id_user.toInt(),
-                        id_client = id_client.toInt(),
+                        id_user = id_user,
+                        id_client = id_client,
                         email = email,
                         senha = senha,
                         nome = nome,
@@ -155,8 +175,8 @@ fun login(
 
                     saveLogin(
                         context,
-                        id_user = id_user.toInt(),
-                        id_client = id_client.toInt(),
+                        id_user = id_user,
+                        id_client = id_client,
                         email = email,
                         senha = senha,
                         nome = nome,
@@ -192,15 +212,4 @@ fun login(
             }
         }
     }
-}
-
-
-
-
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun previewLogin() {
-    val navController = rememberNavController()
-
-    LoginScreen(navController = navController, lifecycleScope = null)
 }

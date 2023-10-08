@@ -3,6 +3,7 @@ package com.example.avicultura_silsan.components.feed
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,8 +34,8 @@ fun CardAnuncio(
     peso: Double,
     precoOriginal: Double,
     precoDesconto: Double,
-    onClick: () -> Unit
-    // imagem: String
+    onClick: () -> Unit,
+    imagem: String
 ) {
     Column(
         modifier = Modifier
@@ -45,7 +46,10 @@ fun CardAnuncio(
                 width = 2.dp,
                 color = Color(0xFFE9E9E9),
                 shape = RoundedCornerShape(size = 8.dp)
-            ),
+            )
+            .clickable {
+                       onClick()
+            },
         verticalArrangement = Arrangement.SpaceAround
     ) {
         Row(
@@ -56,20 +60,20 @@ fun CardAnuncio(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.dogue),
-                contentDescription = "Imagem Produto",
-                modifier = Modifier
-                    .height(80.dp)
-                    .width(65.dp)
-            )
-//            AsyncImage(
-//                model = "",
+//            Image(
+//                painter = painterResource(id = R.drawable.dogue),
 //                contentDescription = "Imagem Produto",
 //                modifier = Modifier
 //                    .height(80.dp)
 //                    .width(65.dp)
 //            )
+            AsyncImage(
+                model = imagem,
+                contentDescription = "Imagem Produto",
+                modifier = Modifier
+                    .height(80.dp)
+                    .width(65.dp)
+            )
             Text(
                 modifier = Modifier
                     .fillMaxWidth(),

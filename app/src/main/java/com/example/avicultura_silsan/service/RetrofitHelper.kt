@@ -21,4 +21,8 @@ object RetrofitHelper {
         return retrofitFactory.create(CadastroService::class.java)
     }
 
+    fun getListProdutos(): FeedService{
+        return retrofitFactory.create(FeedService::class.java)
+    }
+
 }

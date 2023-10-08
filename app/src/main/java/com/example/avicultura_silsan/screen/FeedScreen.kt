@@ -1,6 +1,7 @@
 package com.example.avicultura_silsan.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.avicultura_silsan.components.feed.HeaderFeed
 import com.example.avicultura_silsan.components.feed.ListCard
+import com.example.avicultura_silsan.components.profile.FooterProfile
 import com.example.avicultura_silsan.view_model.AnuncioViewModel
 
 @Composable
@@ -25,12 +27,13 @@ fun FeedScreen(
 
     Column(
         Modifier
-            .fillMaxSize()
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
         HeaderFeed{
             navController.navigate("profile")
         }
-        ListCard(navController, viewModel)
-
+        ListCard(navController, viewModel, context)
+        FooterProfile {}
     }
 }

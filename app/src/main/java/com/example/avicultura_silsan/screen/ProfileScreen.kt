@@ -11,27 +11,35 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.avicultura_silsan.components.profile.FooterProfile
 import com.example.avicultura_silsan.components.profile.FormProfile
 import com.example.avicultura_silsan.components.profile.HeaderProfile
 import com.example.avicultura_silsan.components.profile.MainProfile
+import com.example.avicultura_silsan.view_model.UserViewModel
 
-@Preview
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(
+    navController: NavController,
+    viewModel: UserViewModel
+) {
 
     Column (
         modifier = Modifier
             .fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        HeaderProfile{}
-        MainProfile()
+        HeaderProfile{
+            navController.navigate("feed")
+        }
+        MainProfile(viewModel)
         Box(
             modifier = Modifier
                 .height(100.dp)
                 .fillMaxWidth()
         )
-        FooterProfile {}
+        FooterProfile {
+            navController.navigate("feed")
+        }
     }
 }

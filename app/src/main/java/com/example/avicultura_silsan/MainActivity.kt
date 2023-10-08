@@ -19,6 +19,7 @@ import com.example.avicultura_silsan.screen.LoginScreen
 import com.example.avicultura_silsan.screen.ProfileScreen
 import com.example.avicultura_silsan.ui.theme.AviculturaSilsanTheme
 import com.example.avicultura_silsan.view_model.AnuncioViewModel
+import com.example.avicultura_silsan.view_model.UserViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,13 +34,14 @@ class MainActivity : ComponentActivity() {
 
                     val navController = rememberNavController()
                     val anuncioViewModel = viewModel<AnuncioViewModel>()
+                    val usuarioViewModel = viewModel<UserViewModel>()
 
                     NavHost(
-                        navController = navController, startDestination = "profile"
+                        navController = navController, startDestination = "login"
                     ){
 
                         composable("login") {
-                            LoginScreen(navController, lifecycleScope = lifecycleScope)
+                            LoginScreen(navController, lifecycleScope = lifecycleScope, usuarioViewModel)
                         }
 
                         composable("create_account") {
@@ -55,7 +57,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable("profile") {
-                            ProfileScreen()
+                            ProfileScreen(navController = navController, usuarioViewModel)
                         }
 
                     }
