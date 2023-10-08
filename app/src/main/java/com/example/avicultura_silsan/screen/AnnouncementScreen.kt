@@ -1,13 +1,18 @@
 package com.example.avicultura_silsan.screen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -26,46 +31,24 @@ import java.time.format.TextStyle
 @Composable
 fun AnnouncementScreen() {
 
-
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(25.dp, 20.dp)
+            .background(Color.White)
     ) {
         Row (
-            modifier = Modifier.fillMaxWidth()
-        ){
-            Image(
-                painter = painterResource(id = R.drawable.arrow_back),
-                contentDescription = "Seta voltar"
-            )
-        }
-        Image(
-            painter = painterResource(id = R.drawable.dogue),
-            contentDescription = ""
-        )
-        Text(
-            text = "Ração Cachorro - Special Dog adulto - 15kg",
-            fontSize = 24.sp,
-            fontFamily = FontFamily(Font(R.font.glory_variable)),
-            fontWeight = FontWeight(700),
-            color = Color(0xFF000000)
-        )
-        Column (
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .padding(15.dp, 0.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start
         ) {
-            Text(
-                text = "R$ 280,55",
-                style = androidx.compose.ui.text.TextStyle(
-                    fontSize = 16.sp,
-                    fontFamily = FontFamily.SansSerif,
-                    fontWeight = FontWeight(400),
-                    color = Color(0xFFB4B4B4),
-                    textAlign = TextAlign.Center,
-                    textDecoration = TextDecoration.LineThrough,
-                )
+            Image(
+                painter = painterResource(id = R.drawable.seta_voltar),
+                contentDescription = "Seta voltar feed",
+                modifier = Modifier.size(24.dp)
             )
         }
-
     }
 }

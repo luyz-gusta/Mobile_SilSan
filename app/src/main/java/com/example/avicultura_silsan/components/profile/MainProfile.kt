@@ -2,6 +2,7 @@ package com.example.avicultura_silsan.components.profile
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -31,7 +32,9 @@ fun MainProfile(
         verticalArrangement = Arrangement.spacedBy(50.dp)
     ) {
         Text(
-            modifier = Modifier.fillMaxWidth().padding(20.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp),
             text = "Informações do Usuário",
             style = TextStyle(
                 fontSize = 20.sp,
@@ -43,15 +46,15 @@ fun MainProfile(
         )
         FormProfile(viewModel)
 
-        Column(
+        Row (
             modifier = Modifier
                 .fillMaxWidth()
-                .height(115.dp),
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally
+                .height(80.dp)
+                .padding(0.dp, 20.dp),
+            horizontalArrangement = Arrangement.Center
         ) {
-            ButtonDefault(text = "Trocar Senha", color = 0xB2FD7A05) {}
-            ButtonDefault(text = "Editar Conta", color = 0xFFFF5C00) {}
+            ButtonDefault(text = "Trocar Senha", color = 0xFFFF5C00) {}
         }
+
     }
 }
