@@ -86,7 +86,15 @@ fun ListCard(
                     precoDesconto = it.preco_desconto,
                     imagem = it.url,
                     onClick = {
-                        navController.navigate("profile")
+                        viewModel.nome = it.nome
+                        viewModel.foto = it.url
+                        viewModel.cupom = it.cupom
+                        viewModel.descricao = it.descricao
+                        viewModel.peso = it.peso
+                        viewModel.precoDesconto = it.preco_desconto
+                        viewModel.precoOriginal = it.preco_original
+
+                        navController.navigate("anuncio")
                     }
                 )
                 Spacer(modifier = Modifier.height(15.dp))

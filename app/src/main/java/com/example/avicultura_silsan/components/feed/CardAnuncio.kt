@@ -40,7 +40,7 @@ fun CardAnuncio(
     Column(
         modifier = Modifier
             .width(360.dp)
-            .height(180.dp)
+            .height(165.dp)
             .background(Color.White)
             .border(
                 width = 2.dp,

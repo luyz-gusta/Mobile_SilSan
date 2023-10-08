@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable("anuncio") {
-                            AnnouncementScreen()
+                            AnnouncementScreen(navController, anuncioViewModel)
                         }
 
                         composable("profile") {
