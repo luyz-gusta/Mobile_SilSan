@@ -61,18 +61,13 @@ fun LoginScreen(
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.dogue),
-            contentDescription = "",
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop // Para ajustar a escala da imagem como fundo
-        )
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Transparent), // Torna o fundo da Column transparente
-            horizontalAlignment = Alignment.CenterHorizontally
+                .background(Color.White), // Torna o fundo da Column transparente
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(15.dp)
         ) {
             Header()
             Spacer(

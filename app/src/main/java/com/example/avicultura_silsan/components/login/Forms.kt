@@ -15,9 +15,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,7 +42,7 @@ fun Form(
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.Top),
+        verticalArrangement = Arrangement.spacedBy(15.dp, Alignment.Top),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         TextBoxScreen(
@@ -64,15 +68,13 @@ fun Form(
                 .clickable {
                     navController?.navigate("forgot_password")
                 },
-            color = colorResource(id = R.color.orange_creme),
-            textAlign = TextAlign.End,
-            style = MaterialTheme.typography.h4.copy(
-                shadow = Shadow(
-                    offset = Offset(10f, 10f),
-                    blurRadius = 30f
-                ),
-                fontSize = 20.sp
-            )
+            style = TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight(600),
+                color = Color(0xFFFF5C00),
+                textDecoration = TextDecoration.Underline
+            ),
+            textAlign = TextAlign.End
         )
     }
 }

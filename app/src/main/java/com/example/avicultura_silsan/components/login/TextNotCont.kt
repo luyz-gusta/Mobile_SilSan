@@ -36,7 +36,7 @@ fun TextNotCont(
             style = TextStyle(
                 fontSize = 18.sp,
                 fontWeight = FontWeight(600),
-                color = Color(0xFFFFFFFF),
+                color = Color.Black,
             )
         )
 
@@ -45,12 +45,12 @@ fun TextNotCont(
             style = TextStyle(
                 fontSize = 18.sp,
                 fontWeight = FontWeight(600),
-                color = colorResource(id = R.color.black),
+                color = Color(0xFFFF5C00),
                 textDecoration = TextDecoration.Underline
             ),
             modifier = Modifier
                 .clickable {
-                    navController?.navigate("create_account")
+                    navController.navigate("create_account")
                 }
         )
 

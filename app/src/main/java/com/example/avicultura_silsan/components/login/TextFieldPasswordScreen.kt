@@ -29,6 +29,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.avicultura_silsan.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,12 +56,13 @@ fun TextFieldPassword(label : String, valor: String, aoMudar: (String) -> Unit )
         label = {
             Text(
                 text = label,
-                color = colorResource(id = R.color.black)
+                fontSize = 12.sp,
+                color = Color(159, 152, 152, 255)
             )
         },
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = colorResource(id = R.color.white ),
-            unfocusedBorderColor = colorResource(id = R.color.white)
+            focusedBorderColor = colorResource(id = R.color.cinza ),
+            unfocusedBorderColor = colorResource(id = R.color.cinza )
         ),
         textStyle = TextStyle(
             color = Color.Black

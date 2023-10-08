@@ -69,7 +69,7 @@ fun HeaderProfile(
                 painter = painterResource(id = R.drawable.arrow_back),
                 contentDescription = "seta voltar",
                 modifier = Modifier
-                    .size(50.dp)
+                    .size(35.dp)
                     .clickable {
                         onClick()
                     }

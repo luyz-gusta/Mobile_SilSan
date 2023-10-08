@@ -33,11 +33,6 @@ fun Header(){
         modifier = Modifier
             .fillMaxWidth()
             .height(185.dp)
-            .shadow(
-                elevation = 40.dp,
-                spotColor = Color(0x40000000),
-                ambientColor = Color(0x40000000)
-            )
     ) {
         Row(
             modifier = Modifier
@@ -70,7 +65,7 @@ fun Header(){
                 style = TextStyle(
                     fontSize = 32.sp,
                     fontWeight = FontWeight(800),
-                    color = Color(0xFFFFFFFF),
+                    color = Color.Black,
                 )
             )
 
@@ -79,7 +74,7 @@ fun Header(){
                 style = TextStyle(
                     fontSize = 16.sp,
                     fontWeight = FontWeight(500),
-                    color = Color(0xFFFFFFFF),
+                    color = Color.Black,
                 )
             )
         }

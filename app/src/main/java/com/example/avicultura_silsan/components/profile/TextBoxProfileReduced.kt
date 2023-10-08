@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,24 +14,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.avicultura_silsan.R
 
 @Composable
-fun TextBoxProfile(
+fun TextBoxProfileReduced(
     nomeValor: String,
     valor: String
 ) {
-
     Column(
         modifier = Modifier
-            .fillMaxWidth()//width.dp)
+            .width(160.dp)
             .background(Color.White),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         Text(
-            text = nomeValor,
+        text = nomeValor,
             fontSize = 14.sp,
             fontFamily = FontFamily(Font(R.font.intermedium)),
             fontWeight = FontWeight(500),
