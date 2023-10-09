@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -45,9 +46,13 @@ fun TextFieldPasswordCreateAccount(label : String, valor: String, aoMudar: (Stri
         },
         label = {
             Text(
-                text = label
+                text = label,
+                color = Color.Black
             )
         },
+        textStyle = TextStyle(
+            color = Color.Black
+        ),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         trailingIcon = {
             IconButton(

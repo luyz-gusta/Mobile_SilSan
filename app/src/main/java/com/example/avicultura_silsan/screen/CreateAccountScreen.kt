@@ -33,30 +33,34 @@ import com.example.avicultura_silsan.sqlite_repository.UserRepository
 import com.example.avicultura_silsan.universal.TextBox
 import kotlinx.coroutines.launch
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 @Composable
 fun CreateAccountScreen(
     navController: NavController,
     lifecycleScope: LifecycleCoroutineScope?
-){
+) {
     val context = LocalContext.current
 
-    var nomeState by remember{
+    var nomeState by remember {
         mutableStateOf("")
     }
-    var telefoneState by remember{
+    var telefoneState by remember {
         mutableStateOf("")
     }
-    var dataNascimentoState by remember{
+    var dataNascimentoState by remember {
         mutableStateOf("")
     }
-    var emailState by remember{
+    var emailState by remember {
         mutableStateOf("")
     }
-    var senhaState by remember{
+    var senhaState by remember {
         mutableStateOf("")
     }
-    var confirmasenhaState by remember{
+    var confirmaSenhaState by remember {
         mutableStateOf("")
     }
 
@@ -68,22 +72,40 @@ fun CreateAccountScreen(
     ) {
         Header()
         Form(
-            navController = navController
+            nomeState,
+            telefoneState,
+            dataNascimentoState,
+            emailState,
+            senhaState,
+            confirmaSenhaState,
+            onNomeChange = { nomeState = it },
+            onTelefoneChange = { telefoneState = it },
+            onDataNascimentoChange = { dataNascimentoState = it },
+            onEmailChange = { emailState = it },
+            onSenhaChange = { senhaState = it },
+            onConfirmaSenhaChange = { confirmaSenhaState = it }
         )
         Spacer(modifier = Modifier.height(10.dp))
         DefaultButton(
             text = "Criar",
-            onClick = { cadastro(
-                nomeState,
-                telefoneState,
-                dataNascimentoState,
-                emailState,
-                senhaState,
-                confirmasenhaState,
-                lifecycleScope!!,
-                navController,
-                context
-            ) }
+            onClick = {
+                Log.e(
+                    "Dados",
+                    "Nome: $nomeState, Telefone: $telefoneState, Data: $dataNascimentoState, Email: $emailState, Senha:$senhaState"
+                )
+
+                cadastro(
+                    nomeState,
+                    telefoneState,
+                    dataNascimentoState,
+                    emailState,
+                    senhaState,
+                    confirmaSenhaState,
+                    lifecycleScope!!,
+                    navController,
+                    context
+                )
+            }
 
         )
 
@@ -101,65 +123,106 @@ fun cadastro(
     dataNascimento: String,
     email: String,
     senha: String,
-    confirmasenha: String,
+    confirmaSenha: String,
     lifecycleScope: LifecycleCoroutineScope,
     navController: NavController,
     context: Context
-){
+) {
 
-    if(nome == "" || telefone == "" || email == "" || dataNascimento == "" || senha == "" || confirmasenha == ""){
+    if (nome == "" || telefone == "" || email == "" || dataNascimento == "" || senha == "" || confirmaSenha == "") {
         Toast.makeText(context, "Ha campos em aberto", Toast.LENGTH_LONG).show()
-    }else {
+        Log.e("CADASTRO - ERROR", "CADASTRO_V1: REQUIRE FIELDS")
+
+    }else if (senha == confirmaSenha){
         val cadastroRepository = CadastroRepository()
 
-        lifecycleScope.launch {
-            val response = cadastroRepository.cadastroUsuario(nome,telefone,email,dataNascimento,senha,confirmasenha)
 
-            if(response.isSuccessful){
+        lifecycleScope.launch {
+            //val response = cadastroRepository.cadastroUsuario(nome,telefone,email,dataNascimento,senha)
+            val response = cadastroRepository.cadastroUsuario(
+                nome = nome,
+                telefone = telefone,
+                email = email,
+                dataNascimento = dataNascimento.toAmericanDateFormat(),
+                senha = senha
+            )
+
+            if (response.isSuccessful) {
 
                 val jsonString = response.body().toString()
                 val jsonObject = JSONObject(jsonString)
 
-                val cliente = jsonObject.getJSONObject("id")
-                val nome = jsonObject.getJSONObject("nome")
-                val telefone = cliente.getString("telefone")
-                val dataNacimento = cliente.getString("data_nascimento")
-                val idUsuario = cliente.getString("id_Usuario")
+                val cliente = jsonObject.getJSONObject("cliente")
                 val emailClient = cliente.getString("email")
-
-                val user = jsonObject.getJSONObject("usuario")
-                val emailUser = user.getString("email")
-                val senha = user.getString("senha")
-                val id_user = user.getString("id")
+                val nome = cliente.getString("nome")
 
                 Log.e("Cadastro - SUCESS - 201", "Cadastro: ${response.body()}")
-                Toast.makeText(context, "Bem vindo $nome ao nosso sistema", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Bem vindo $nome ao nosso sistema", Toast.LENGTH_SHORT)
+                    .show()
 
+                navController.navigate("login")
+            } else {
+                Log.e("Cadastro - ERROR - 999", "Cadastro: ${response.errorBody()?.string()}")
+                Toast.makeText(context, "fudeu no 999", Toast.LENGTH_SHORT).show()
+                Log.e("COODE01", "cadastro: ${response.code()}")
 
-                navController.navigate("Feed")
-            }else{
+                when (response.code()) {
+                    400 -> {
+                        Log.e(
+                            "Cadastro - ERROR - 400",
+                            "Cadastro: ${response.errorBody()?.string()}"
+                        )
 
-                when(response.code()){
+                        Toast.makeText(
+                            context,
+                            "NÃO FOI PREENCHIDO TODOS OS CAMPOS OBRIGATÓRIOS",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
 
                     404 -> {
-                        Log.e("Cadastro - ERROR - 404", "Cadastro: ${response.errorBody()?.string()}")
-
-                        Toast.makeText(context, "Há campos em aberto", Toast.LENGTH_LONG).show()
+                        Log.e(
+                            "Cadastro - ERROR - 404",
+                            "Cadastro: ${response.errorBody()?.string()}"
+                        )
+                        Toast.makeText(context, "Sla nao sei esse erro nao", Toast.LENGTH_LONG)
+                            .show()
                     }
 
                     500 -> {
-                        Log.e("LOGIN - ERROR - 500", "login: ${response.errorBody()?.string()}")
+                        Log.e("CADASTRO - ERROR - 500", "login: ${response.errorBody()?.string()}")
 
-                        Toast.makeText(context, "SERVIDOR INDISPONIVEL NO MOMENTO, TENTE MAIS TARDE", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            context,
+                            "SERVIDOR INDISPONIVEL NO MOMENTO, TENTE MAIS TARDE",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
             }
         }
+    }else {
+        Toast.makeText(context, "SENHA INVÁLIDA", Toast.LENGTH_LONG).show()
+        Log.e("CADASTRO - ERROR", "CADASTRO: SENHA INVÁLIDA")
     }
 }
+
+fun String.toAmericanDateFormat(
+    pattern: String = "yyyy-MM-dd"
+): String {
+    val date = Date(this)
+    val formatter = SimpleDateFormat(
+        pattern, Locale("pt-br")
+    ).apply {
+        timeZone = TimeZone.getTimeZone("GMT")
+    }
+    return formatter.format(date)
+}
+
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun preview(){
+fun preview() {
     val navController = rememberNavController()
+
     CreateAccountScreen(navController = navController, lifecycleScope = null)
 }

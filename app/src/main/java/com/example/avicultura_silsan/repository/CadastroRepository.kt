@@ -13,17 +13,14 @@ class CadastroRepository {
         telefone: String,
         dataNascimento: String,
         email: String,
-        senha: String,
-        confirmasenha: String,
-
+        senha: String
     ): Response<JsonObject> {
         val requestBody = JsonObject().apply {
-            addProperty("nome", nome)
-            addProperty("telefone", telefone)
-            addProperty("data_nascimento", dataNascimento)
-            addProperty("email", email)
-            addProperty("senha", senha)
-            addProperty("confirmasenha", confirmasenha)
+            addProperty("email_usuario", email)
+            addProperty("senha_usuario", senha)
+            addProperty("nome_cliente", nome)
+            addProperty("telefone_cliente", telefone)
+            addProperty("data_nascimento_cliente", dataNascimento)
         }
 
         return apiService.cadastroUsuario(requestBody)

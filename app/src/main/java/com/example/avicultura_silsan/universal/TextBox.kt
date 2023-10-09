@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.avicultura_silsan.R
@@ -30,12 +31,16 @@ fun TextBox(label : String, valor: String, aoMudar: (String) -> Unit ) {
             .width(300.dp),
         label = {
             Text(
-                text = label
+                text = label,
+                color = Color.Black
             )
         },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = colorResource(id = R.color.cinza ),
             unfocusedBorderColor = colorResource(id = R.color.cinza )
+        ),
+        textStyle = TextStyle(
+            color = Color.Black
         )
     )
 }

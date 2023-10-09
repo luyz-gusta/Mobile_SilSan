@@ -21,30 +21,19 @@ import com.example.avicultura_silsan.universal.TextBox
 
 @Composable
 fun Form (
-    navController: NavController
+    nome:String,
+    telefone:String,
+    dataNascimento:String,
+    email:String,
+    senha:String,
+    cofirmaSenha:String,
+    onNomeChange:(String) -> Unit,
+    onTelefoneChange:(String) -> Unit,
+    onDataNascimentoChange:(String) -> Unit,
+    onEmailChange:(String) -> Unit,
+    onSenhaChange:(String) -> Unit,
+    onConfirmaSenhaChange:(String) -> Unit,
 ){
-    var nomeState by remember {
-        mutableStateOf("")
-    }
-
-    var telefoneState by remember {
-        mutableStateOf("")
-    }
-
-    var emailState by remember {
-        mutableStateOf("")
-    }
-
-    var selectedDate by remember { mutableStateOf("") }
-
-    var senhaState by remember {
-        mutableStateOf("")
-    }
-
-    var confirmeSenhaState by remember {
-        mutableStateOf("")
-    }
-
     Column(
         modifier = Modifier
             .padding(8.dp)
@@ -54,47 +43,47 @@ fun Form (
     ) {
         TextBox(
             label = "Nome",
-            valor = nomeState,
+            valor = nome,
             aoMudar = {
-                nomeState = it
+                onNomeChange(it)
             }
         )
 
         TextBox(
             label = "Telefone",
-            valor = telefoneState,
+            valor = telefone,
             aoMudar = {
-                telefoneState = it
+                onTelefoneChange(it)
             }
         )
 
         OutlinedDate(
-            selectedDate
+            dataNascimento
         ) {
-            selectedDate = it
+            onDataNascimentoChange(it)
         }
 
         TextBox(
             label = "Email",
-            valor = nomeState,
+            valor = email,
             aoMudar = {
-                nomeState = it
+                onEmailChange(it)
             }
         )
 
         TextFieldPasswordCreateAccount(
             label = "Senha",
-            valor = senhaState,
+            valor = senha,
             aoMudar = {
-                senhaState = it // Chame a função de callback para atualizar a senha
+                onSenhaChange(it) // Chame a função de callback para atualizar a senha
             }
         )
 
         TextFieldPasswordCreateAccount(
             label = "Confirme a senha",
-            valor = confirmeSenhaState,
+            valor = cofirmaSenha,
             aoMudar = {
-                confirmeSenhaState = it// Chame a função de callback para atualizar a senha
+                onConfirmaSenhaChange(it)// Chame a função de callback para atualizar a senha
             }
         )
     }
@@ -103,7 +92,4 @@ fun Form (
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun Preview() {
-    val navController = rememberNavController()
-
-    Form(navController = navController)
 }

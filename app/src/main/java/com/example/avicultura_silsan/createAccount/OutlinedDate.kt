@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.example.avicultura_silsan.R
 import java.text.SimpleDateFormat
@@ -61,7 +62,10 @@ fun OutlinedDate (
                             }
                         showDatePickerDialog = false
                     }) {
-                    Text(text = "Escolher data")
+                    Text(
+                        text = "Escolher data",
+                        color = Color.Black
+                    )
                 }
             }) {
             DatePicker(state = datePickerState)
@@ -80,12 +84,18 @@ fun OutlinedDate (
                 }
             },
         label = {
-            Text("Data de Nascimento")
+            Text(
+                "Data de Nascimento",
+                color = Color.Black
+            )
         },
         readOnly = true,
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = colorResource(id = R.color.cinza ),
             unfocusedBorderColor = colorResource(id = R.color.cinza )
+        ),
+        textStyle = TextStyle(
+            color = Color.Black
         )
     )
 }
