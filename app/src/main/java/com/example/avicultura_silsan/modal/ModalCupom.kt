@@ -41,12 +41,14 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import com.example.avicultura_silsan.R
+import com.example.avicultura_silsan.view_model.AnuncioViewModel
 
 //@Preview
 @Composable
 fun ModalCupomAnuncio(
     isDialogVisibleCupom: Boolean,
     navController: NavController,
+    viewModel: AnuncioViewModel
 ) {
 
     val startColor = Color(1.0f, 0.36f, 0.0f, 1.0f) // RGB: 255, 92, 0, 100%
@@ -55,6 +57,11 @@ fun ModalCupomAnuncio(
     val clipboardManager = LocalClipboardManager.current
     var copiadoComSucesso by remember { mutableStateOf(false) }
 
+    val precoOriginal = viewModel.precoOriginal
+    val precoDesconto = viewModel.precoDesconto
+    val cupom = viewModel.cupom
+
+    val valor = NumberWithDecimalLimit(number = precoOriginal - precoDesconto, decimalPlaces = 2)
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -84,7 +91,9 @@ fun ModalCupomAnuncio(
                     Image(
                         painter = painterResource(id = R.drawable.icon_close),
                         contentDescription = "",
-                        modifier = Modifier.size(22.dp).clickable { navController.navigate("anuncio") },
+                        modifier = Modifier
+                            .size(22.dp)
+                            .clickable { navController.navigate("anuncio") },
                     )
                 }
                 Column (
@@ -95,7 +104,7 @@ fun ModalCupomAnuncio(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ){
                     Text(
-                        text = "Resgate o cupom do seu produto na loja e ganhe: 59,99 de desconto",
+                        text = "Resgate o cupom do seu produto na loja e ganhe: R$${valor} de desconto",
                         style = TextStyle(
                             fontSize = 20.sp,
                             fontFamily = FontFamily(Font(R.font.intermedium)),
@@ -119,7 +128,7 @@ fun ModalCupomAnuncio(
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Text(
-                                text = "IB85NHJ",
+                                text = cupom,
                                 style = TextStyle(
                                     fontSize = 20.sp,
                                     fontFamily = FontFamily(Font(R.font.intermedium)),
@@ -143,4 +152,11 @@ fun ModalCupomAnuncio(
             }
         }
     }
+}
+
+@Composable
+fun NumberWithDecimalLimit(number: Double, decimalPlaces: Int): String {
+    val formattedNumber = String.format("%.${decimalPlaces}f", number)
+
+    return formattedNumber
 }

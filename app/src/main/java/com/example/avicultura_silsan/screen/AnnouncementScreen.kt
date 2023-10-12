@@ -130,7 +130,8 @@ fun AnnouncementScreen(
                     if (isDialogVisibleCupom) {
                         ModalCupomAnuncio(
                             isDialogVisibleCupom = false,
-                            navController = navController
+                            navController = navController,
+                            viewModel
                         )
                     }
                     Spacer(modifier = Modifier.height(5.dp))
