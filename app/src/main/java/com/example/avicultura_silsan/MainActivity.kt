@@ -17,6 +17,7 @@ import com.example.avicultura_silsan.screen.CreateAccountScreen
 import com.example.avicultura_silsan.screen.FeedScreen
 import com.example.avicultura_silsan.screen.LoginScreen
 import com.example.avicultura_silsan.screen.ProfileScreen
+import com.example.avicultura_silsan.screen.StartScreen
 import com.example.avicultura_silsan.ui.theme.AviculturaSilsanTheme
 import com.example.avicultura_silsan.view_model.AnuncioViewModel
 import com.example.avicultura_silsan.view_model.UserViewModel
@@ -37,8 +38,12 @@ class MainActivity : ComponentActivity() {
                     val usuarioViewModel = viewModel<UserViewModel>()
 
                     NavHost(
-                        navController = navController, startDestination = "login"
+                        navController = navController, startDestination = "start"
                     ){
+
+                        composable("start") {
+                            StartScreen(navController)
+                        }
 
                         composable("login") {
                             LoginScreen(navController, lifecycleScope = lifecycleScope, usuarioViewModel)

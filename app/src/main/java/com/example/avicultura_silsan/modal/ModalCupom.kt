@@ -39,11 +39,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.navigation.NavController
 import com.example.avicultura_silsan.R
 
-@Preview
+//@Preview
 @Composable
-fun ModalCupomAnuncio() {
+fun ModalCupomAnuncio(
+    isDialogVisibleCupom: Boolean,
+    navController: NavController,
+) {
 
     val startColor = Color(1.0f, 0.36f, 0.0f, 1.0f) // RGB: 255, 92, 0, 100%
     val endColor = Color(1.0f, 0.48f, 0.19f, 1.0f) // RGB: 255, 123, 49, 100%
@@ -57,18 +61,19 @@ fun ModalCupomAnuncio() {
         verticalArrangement = Arrangement.Center
     ) {
         Dialog(
-            onDismissRequest = { /*TODO*/ }
+            onDismissRequest = {
+                isDialogVisibleCupom
+            }
         ) {
             Column(
                 modifier = Modifier
                     .width(340.dp)
                     .height(200.dp)
-                    .padding(8.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .background(
                         Brush.verticalGradient(listOf(startColor, endColor))
                     ),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(2.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Row(
@@ -79,12 +84,13 @@ fun ModalCupomAnuncio() {
                     Image(
                         painter = painterResource(id = R.drawable.icon_close),
                         contentDescription = "",
-                        modifier = Modifier.size(22.dp)
+                        modifier = Modifier.size(22.dp).clickable { navController.navigate("anuncio") },
                     )
                 }
                 Column (
                     modifier = Modifier
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .padding(5.dp, 0.dp),
                     verticalArrangement = Arrangement.spacedBy(35.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ){
@@ -109,7 +115,8 @@ fun ModalCupomAnuncio() {
                         Row (
                             modifier = Modifier
                                 .fillMaxSize(),
-                            verticalAlignment = Alignment.CenterVertically
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Text(
                                 text = "IB85NHJ",

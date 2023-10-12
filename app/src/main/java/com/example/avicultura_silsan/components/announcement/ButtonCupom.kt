@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.avicultura_silsan.R
+import com.example.avicultura_silsan.modal.ModalCupomAnuncio
 
 @Composable
 fun ButtonCupom(
@@ -46,7 +48,7 @@ fun ButtonCupom(
                         Color(1.0f, 0.36f, 0.0f, 0.6f) // RGB: 255, 92, 0, 62%
                     ),
                 )
-                
+
             )
             .padding(18.dp, 12.dp),
         verticalAlignment = Alignment.CenterVertically,

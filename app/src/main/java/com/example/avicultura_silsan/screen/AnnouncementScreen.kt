@@ -16,6 +16,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,6 +37,7 @@ import com.example.avicultura_silsan.R
 import com.example.avicultura_silsan.components.announcement.ButtonCupom
 import com.example.avicultura_silsan.components.announcement.Prices
 import com.example.avicultura_silsan.components.announcement.ProductDescription
+import com.example.avicultura_silsan.modal.ModalCupomAnuncio
 import com.example.avicultura_silsan.view_model.AnuncioViewModel
 
 @Composable
@@ -40,6 +45,8 @@ fun AnnouncementScreen(
     navController: NavController,
     viewModel: AnuncioViewModel
 ) {
+
+    var isDialogVisibleCupom by remember { mutableStateOf(false) }
 
     val imagem = viewModel.foto
     val nome = viewModel.nome
@@ -117,7 +124,15 @@ fun AnnouncementScreen(
                         valorDesconto = precoDesconto
                     )
 
-                    ButtonCupom(){}
+                    ButtonCupom {
+                        isDialogVisibleCupom = true
+                    }
+                    if (isDialogVisibleCupom) {
+                        ModalCupomAnuncio(
+                            isDialogVisibleCupom = false,
+                            navController = navController
+                        )
+                    }
                     Spacer(modifier = Modifier.height(5.dp))
                     ProductDescription(descricao)
                     Spacer(modifier = Modifier.height(5.dp))
