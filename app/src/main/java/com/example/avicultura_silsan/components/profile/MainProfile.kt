@@ -18,13 +18,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.avicultura_silsan.R
 import com.example.avicultura_silsan.universal.ButtonDefault
 import com.example.avicultura_silsan.view_model.UserViewModel
 
 @Composable
 fun MainProfile(
-    viewModel: UserViewModel
+    viewModel: UserViewModel,
+    navController: NavController
 ) {
     Column(
         modifier = Modifier
@@ -53,7 +55,9 @@ fun MainProfile(
                 .padding(0.dp, 20.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            ButtonDefault(text = "Trocar Senha", color = 0xFFFF5C00) {}
+            ButtonDefault(text = "Sair", color = 0xFFFF5C00) {
+                navController.navigate("login")
+            }
         }
 
     }

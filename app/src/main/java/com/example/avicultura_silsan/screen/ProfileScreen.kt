@@ -32,7 +32,7 @@ fun ProfileScreen(
         HeaderProfile{
             navController.navigate("feed")
         }
-        MainProfile(viewModel)
+        MainProfile(viewModel, navController)
         Box(
             modifier = Modifier
                 .height(100.dp)
