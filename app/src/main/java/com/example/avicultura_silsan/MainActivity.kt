@@ -15,8 +15,11 @@ import androidx.navigation.compose.rememberNavController
 import com.example.avicultura_silsan.screen.AnnouncementScreen
 import com.example.avicultura_silsan.screen.CreateAccountScreen
 import com.example.avicultura_silsan.screen.FeedScreen
+import com.example.avicultura_silsan.screen.InsertCodeScreen
+import com.example.avicultura_silsan.screen.InsertEmailScreen
 import com.example.avicultura_silsan.screen.LoginScreen
 import com.example.avicultura_silsan.screen.ProfileScreen
+import com.example.avicultura_silsan.screen.ResetPasswordScreen
 import com.example.avicultura_silsan.screen.StartScreen
 import com.example.avicultura_silsan.ui.theme.AviculturaSilsanTheme
 import com.example.avicultura_silsan.view_model.AnuncioViewModel
@@ -38,7 +41,7 @@ class MainActivity : ComponentActivity() {
                     val usuarioViewModel = viewModel<UserViewModel>()
 
                     NavHost(
-                        navController = navController, startDestination = "start"
+                        navController = navController, startDestination = "reset_password"
                     ){
 
                         composable("start") {
@@ -47,6 +50,18 @@ class MainActivity : ComponentActivity() {
 
                         composable("login") {
                             LoginScreen(navController, lifecycleScope = lifecycleScope, usuarioViewModel)
+                        }
+
+                        composable("insert_email") {
+                            InsertEmailScreen()
+                        }
+
+                        composable("insert_code") {
+                            InsertCodeScreen()
+                        }
+
+                        composable("reset_password") {
+                            ResetPasswordScreen()
                         }
 
                         composable("create_account") {
