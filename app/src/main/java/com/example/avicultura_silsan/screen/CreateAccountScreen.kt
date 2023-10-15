@@ -27,7 +27,9 @@ import com.example.avicultura_silsan.components.createAccount.Header
 import com.example.avicultura_silsan.components.createAccount.TextAccount
 import com.example.avicultura_silsan.components.login.DefaultButton
 import com.example.avicultura_silsan.functions.deleteUserSQLite
+import com.example.avicultura_silsan.functions.isOver18Years
 import com.example.avicultura_silsan.functions.saveLogin
+import com.example.avicultura_silsan.functions.toAmericanDateFormat
 import com.example.avicultura_silsan.repository.CadastroRepository
 import com.example.avicultura_silsan.sqlite_repository.UserRepository
 import com.example.avicultura_silsan.universal.TextBox
@@ -130,15 +132,16 @@ fun cadastro(
 ) {
 
     if (nome == "" || telefone == "" || email == "" || dataNascimento == "" || senha == "" || confirmaSenha == "") {
-        Toast.makeText(context, "Ha campos em aberto", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Não foi inserido todos os dados", Toast.LENGTH_LONG).show()
         Log.e("CADASTRO - ERROR", "CADASTRO_V1: REQUIRE FIELDS")
 
+    }else if(!isOver18Years(dataNascimento)) {
+        Toast.makeText(context, "Você é menor de idade não pode utilizar o sistema", Toast.LENGTH_LONG).show()
     }else if (senha == confirmaSenha){
         val cadastroRepository = CadastroRepository()
 
-
         lifecycleScope.launch {
-            //val response = cadastroRepository.cadastroUsuario(nome,telefone,email,dataNascimento,senha)
+
             val response = cadastroRepository.cadastroUsuario(
                 nome = nome,
                 telefone = telefone,
@@ -207,21 +210,9 @@ fun cadastro(
     }
 }
 
-fun String.toAmericanDateFormat(
-    pattern: String = "yyyy-MM-dd"
-): String {
-    val date = Date(this)
-    val formatter = SimpleDateFormat(
-        pattern, Locale("pt-br")
-    ).apply {
-        timeZone = TimeZone.getTimeZone("GMT")
-    }
-    return formatter.format(date)
-}
-
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun preview() {
+fun Preview() {
     val navController = rememberNavController()
 
     CreateAccountScreen(navController = navController, lifecycleScope = null)

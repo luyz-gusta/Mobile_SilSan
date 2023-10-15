@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
                     val usuarioViewModel = viewModel<UserViewModel>()
 
                     NavHost(
-                        navController = navController, startDestination = "reset_password"
+                        navController = navController, startDestination = "start"
                     ){
 
                         composable("start") {

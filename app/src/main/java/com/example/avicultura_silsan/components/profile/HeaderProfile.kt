@@ -46,13 +46,6 @@ fun HeaderProfile(
     onClick: () -> Unit
 ) {
 
-    val context = LocalContext.current
-
-    val dadaUser = UserRepository(context).findUsers()
-
-    val user = dadaUser[0]
-
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
