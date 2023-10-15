@@ -64,14 +64,14 @@ fun FooterInsertEmail(
             text = "Solicitar código",
             color = 0xFFFF5C00,
             onClick = {
-                resetPassword(emailState, lifecycleScope, viewModel, navController, context)
+                enviarEmail(emailState, lifecycleScope, viewModel, navController, context)
             }
         )
     }
 }
 
 
-fun resetPassword(
+fun enviarEmail(
     email: String,
     lifecycleScope: LifecycleCoroutineScope,
     viewModel: RetrieveAccountViewModel,
@@ -88,9 +88,10 @@ fun resetPassword(
             if (response.isSuccessful) {
                 viewModel.email = response.body()?.get("email")?.toString()
                 viewModel.code = response.body()?.get("token")?.asInt
+                viewModel.id = response.body()?.get("id")?.asInt
 
                 Log.e("FORGOT PASSWORD - SUCESS - 201", "forgot_password: ${response.body()}")
-                Toast.makeText(context, "EMAIL VÁLIDADO", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "CÓDIGO ENVIADO COM SUCESSOS", Toast.LENGTH_SHORT).show()
 
                 navController.navigate("insert_code")
             } else {

@@ -1,5 +1,8 @@
 package com.example.avicultura_silsan.components.retrieve_account.insert_code
 
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,15 +27,28 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.navigation.NavController
 import com.example.avicultura_silsan.components.retrieve_account.insert_email.ButtonInsertEmail
+import com.example.avicultura_silsan.repository.RetriveAccountRepository
 import com.example.avicultura_silsan.universal.ButtonDefault
+import com.example.avicultura_silsan.view_model.RetrieveAccountViewModel
+import kotlinx.coroutines.launch
 
-@Preview
 @Composable
-fun FormInsertCode() {
+fun FormInsertCode(
+    navController: NavController,
+    lifecycleScope: LifecycleCoroutineScope,
+    viewModel: RetrieveAccountViewModel,
+    context: Context
+) {
     var codigoState by remember {
         mutableStateOf("")
     }
+
+    val email = viewModel.email
+
+    Log.e("email", "FormInsertCode: $email", )
 
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.Top),
@@ -87,17 +103,42 @@ fun FormInsertCode() {
                 text = "Continuar",
                 color = 0xFFFF5C00,
                 colorText = 0xFFFFFFFF,
-                onClick = { }
+                onClick = {
+                    Log.e("Codigo", "FormInsertCode: ${codigoState.toInt()}", )
+                    insertCode(navController, lifecycleScope, viewModel, context, codigoState.toInt())
+                }
             )
             Spacer(modifier = Modifier.height(24.dp))
-
-            ButtonCode(
-                text = "Reenviar código",
-                color = 0xFFE6E6E6,
-                colorText = 0xFF808080,
-            ) {
-                
-            }
         }
     }
+}
+
+fun insertCode (
+    navController: NavController,
+    lifecycleScope: LifecycleCoroutineScope,
+    viewModel: RetrieveAccountViewModel,
+    context: Context,
+    codigoState: Int
+) {
+
+    lifecycleScope.launch {
+        val email = viewModel.email
+        val code = viewModel.code
+
+        if(insertCodeValidation(codigoState)){
+            Toast.makeText(context, "CODIGO DIGITADO INVÁLIDO", Toast.LENGTH_SHORT).show()
+        }else if(code == codigoState){
+            viewModel.email = ""
+
+            navController.navigate("reset_password")
+            Log.e("Inset-Code-Sucess", "Sucesso", )
+            Toast.makeText(context, "CÓDIGO VÁLIDO", Toast.LENGTH_SHORT).show()
+        }else{
+            Log.e("Inset-Code", "ERROU", )
+            Toast.makeText(context, "CÓDIGO INVÁLIDO", Toast.LENGTH_LONG).show()
+        }
+    }
+}
+fun insertCodeValidation (codigo: Int): Boolean {
+    return (codigo.countOneBits() == 4)
 }

@@ -59,7 +59,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable("insert_code") {
-                            InsertCodeScreen()
+                            InsertCodeScreen(navController, lifecycleScope, retrieveAccountViewModel)
                         }
 
                         composable("reset_password") {

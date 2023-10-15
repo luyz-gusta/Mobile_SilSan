@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.avicultura_silsan.R
@@ -21,10 +22,14 @@ import com.example.avicultura_silsan.R
 @Composable
 fun TextFieldCode(label : String, valor: String, aoMudar: (String) -> Unit ) {
 
+    val maxLength = 4
+
     OutlinedTextField(
         value = valor,
         onValueChange = {
-            aoMudar(it)
+            if(it.length <= maxLength){
+                aoMudar(it)
+            }
         },
         label={
             Text(
