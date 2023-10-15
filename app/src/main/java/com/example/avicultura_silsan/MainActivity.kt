@@ -63,7 +63,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable("reset_password") {
-                            ResetPasswordScreen()
+                            ResetPasswordScreen(navController = navController, lifecycleScope = lifecycleScope, viewModel = retrieveAccountViewModel)
                         }
 
                         composable("create_account") {

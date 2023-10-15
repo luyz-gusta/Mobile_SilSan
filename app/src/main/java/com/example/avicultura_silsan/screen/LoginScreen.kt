@@ -127,66 +127,70 @@ fun login(
                 val jsonString = response.body().toString()
                 val jsonObject = JSONObject(jsonString)
 
-                val cliente = jsonObject.getJSONObject("cliente")
-                val id_client = cliente.getInt("id")
-                val nome = cliente.getString("nome")
-                val telefone = cliente.getString("telefone")
-                val dataNascimento = cliente.getString("data_nascimento")
-
-                val user = jsonObject.getJSONObject("usuario")
-                val email = user.getString("email")
-                val senha = user.getString("senha")
-                val id_user = user.getInt("id")
-                val id_status_usuario = user.getInt("id_status_usuario")
-
-                Log.e("LOGIN - SUCESS - 201", "login: ${response.body()}")
-                Log.e("User", "login: ${user}")
-                Log.e("Client", "login: ${cliente}")
-                Toast.makeText(context, "Bem vindo $nome ao nosso sistema", Toast.LENGTH_SHORT).show()
-
-                viewModel.id_cliente = id_client
-                viewModel.nome = nome
-                viewModel.telefone = telefone
-                viewModel.data_nascimento = dataNascimento
-
-                Log.e("DN", "login: $dataNascimento", )
-
-                viewModel.id_usuario = id_user
-                viewModel.email = email
-                viewModel.senha = senha
-
-                viewModel.id_status_usuario = id_status_usuario
-
-                if(UserRepository(context).findUsers().isEmpty()){
-
-                    saveLogin(
-                        context,
-                        id_user = id_user,
-                        id_client = id_client,
-                        email = email,
-                        senha = senha,
-                        nome = nome,
-                        telefone,
-                        dataNascimento
-                    )
-
+                if(jsonObject.getJSONObject("cliente") == null ){
+                    Toast.makeText(context, "Somente cliente pode acessar o sistema", Toast.LENGTH_LONG).show()
                 }else{
-                    deleteUserSQLite(context)
+                    val cliente = jsonObject.getJSONObject("cliente")
+                    val id_client = cliente.getInt("id")
+                    val nome = cliente.getString("nome")
+                    val telefone = cliente.getString("telefone")
+                    val dataNascimento = cliente.getString("data_nascimento")
 
-                    saveLogin(
-                        context,
-                        id_user = id_user,
-                        id_client = id_client,
-                        email = email,
-                        senha = senha,
-                        nome = nome,
-                        telefone,
-                        dataNascimento
-                    )
+                    val user = jsonObject.getJSONObject("usuario")
+                    val email = user.getString("email")
+                    val senha = user.getString("senha")
+                    val id_user = user.getInt("id")
+                    val id_status_usuario = user.getInt("id_status_usuario")
 
+                    Log.e("LOGIN - SUCESS - 201", "login: ${response.body()}")
+                    Log.e("User", "login: ${user}")
+                    Log.e("Client", "login: ${cliente}")
+                    Toast.makeText(context, "Bem vindo $nome ao nosso sistema", Toast.LENGTH_SHORT).show()
+
+                    viewModel.id_cliente = id_client
+                    viewModel.nome = nome
+                    viewModel.telefone = telefone
+                    viewModel.data_nascimento = dataNascimento
+
+                    Log.e("DN", "login: $dataNascimento", )
+
+                    viewModel.id_usuario = id_user
+                    viewModel.email = email
+                    viewModel.senha = senha
+
+                    viewModel.id_status_usuario = id_status_usuario
+
+                    if(UserRepository(context).findUsers().isEmpty()){
+
+                        saveLogin(
+                            context,
+                            id_user = id_user,
+                            id_client = id_client,
+                            email = email,
+                            senha = senha,
+                            nome = nome,
+                            telefone,
+                            dataNascimento
+                        )
+
+                    }else{
+                        deleteUserSQLite(context)
+
+                        saveLogin(
+                            context,
+                            id_user = id_user,
+                            id_client = id_client,
+                            email = email,
+                            senha = senha,
+                            nome = nome,
+                            telefone,
+                            dataNascimento
+                        )
+
+                    }
+
+                    navController.navigate("feed")
                 }
-
-                navController.navigate("feed")
             }else{
 
                 when(response.code()){

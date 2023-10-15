@@ -5,6 +5,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.PUT
 
 interface RetrieveAccountService {
 
@@ -15,5 +16,9 @@ interface RetrieveAccountService {
     @Headers("Content-Type: application/json")
     @POST("validar-token")
     suspend fun postValidateToken(@Body body: JsonObject): Response<JsonObject>
+
+    @Headers("Content-Type: application/json")
+    @PUT("trocar-senha")
+    suspend fun putMudarSenha(@Body body: JsonObject): Response<JsonObject>
 
 }

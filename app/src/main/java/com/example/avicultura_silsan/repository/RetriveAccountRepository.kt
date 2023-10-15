@@ -25,4 +25,16 @@ class RetriveAccountRepository {
         return apiService.postValidateToken(requestBody)
     }
 
+    suspend fun mudarSenha(
+        id: Int?,
+        password: String
+    ): Response<JsonObject> {
+        val requestBody = JsonObject().apply {
+            addProperty("id", id)
+            addProperty("password", password)
+        }
+
+        return apiService.putMudarSenha(requestBody)
+    }
+
 }
