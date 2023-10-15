@@ -1,7 +1,9 @@
 package com.example.avicultura_silsan.service
 
+import com.example.avicultura_silsan.view_model.RetrieveAccountViewModel
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 object RetrofitHelper {
 
@@ -23,6 +25,10 @@ object RetrofitHelper {
 
     fun getListProdutos(): FeedService{
         return retrofitFactory.create(FeedService::class.java)
+    }
+
+    fun retrieveAccount(): RetrieveAccountService{
+        return retrofitFactory.create(RetrieveAccountService::class.java)
     }
 
 }

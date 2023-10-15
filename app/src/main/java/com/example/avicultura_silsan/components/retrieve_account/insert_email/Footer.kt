@@ -1,5 +1,8 @@
 package com.example.avicultura_silsan.components.retrieve_account.insert_email
 
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,14 +19,18 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.navigation.NavController
+import com.example.avicultura_silsan.repository.RetriveAccountRepository
+import com.example.avicultura_silsan.view_model.RetrieveAccountViewModel
+import kotlinx.coroutines.launch
 
-@Preview
 @Composable
 fun FooterInsertEmail(
-//    navController: NavController,
-//    lifecycleScope: LifecycleCoroutineScope,
-//    viewModel: ResetPasswordView,
-//    emailState: String
+    navController: NavController,
+    lifecycleScope: LifecycleCoroutineScope,
+    viewModel: RetrieveAccountViewModel,
+    emailState: String
 ) {
 
     val context = LocalContext.current
@@ -43,22 +50,71 @@ fun FooterInsertEmail(
                 textDecoration = TextDecoration.Underline,
             ),
             modifier = Modifier.clickable {
-//                if (viewModel.email == "")
-//                    Toast.makeText(
-//                        context,
-//                        "VOCÊ NÃO ENVIO NENHUM CÓDIGO PARA SEU EMAIL, A PARTIR DESTE DISPOSITIVO",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                else
-//                    navController.navigate("insert_code")
+                if (viewModel.email == "")
+                    Toast.makeText(
+                        context,
+                        "VOCÊ NÃO ENVIO NENHUM CÓDIGO PARA SEU EMAIL, A PARTIR DESTE DISPOSITIVO",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                else
+                    navController.navigate("insert_code")
             }
         )
         ButtonInsertEmail(
             text = "Solicitar código",
             color = 0xFFFF5C00,
             onClick = {
-
+                resetPassword(emailState, lifecycleScope, viewModel, navController, context)
             }
         )
     }
+}
+
+
+fun resetPassword(
+    email: String,
+    lifecycleScope: LifecycleCoroutineScope,
+    viewModel: RetrieveAccountViewModel,
+    navController: NavController,
+    context: Context
+) {
+    val resetRepository = RetriveAccountRepository()
+
+    if (validationEmail(email)) {
+        lifecycleScope.launch {
+            val response = resetRepository.insertEmail(email)
+            val code = response.code()
+
+            if (response.isSuccessful) {
+                viewModel.email = response.body()?.get("email")?.toString()
+                viewModel.code = response.body()?.get("token")?.asInt
+
+                Log.e("FORGOT PASSWORD - SUCESS - 201", "forgot_password: ${response.body()}")
+                Toast.makeText(context, "EMAIL VÁLIDADO", Toast.LENGTH_SHORT).show()
+
+                navController.navigate("insert_code")
+            } else {
+                if (code == 400) {
+                    Log.e(
+                        "FORGOT PASSWORD - ERROR - 400",
+                        "login: ${response.errorBody()?.string()}"
+                    )
+                    Toast.makeText(
+                        context,
+                        "O NÃO FOI DIGITADO OU NÃO É VÁLIDO",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                Log.e("FORGOT PASSWORD", "forgot_password: ${response.errorBody()?.string()}")
+            }
+        }
+    } else {
+        Log.e("FORGOT PASSWORD - ERROR", "forgot_password")
+        Toast.makeText(context, "EMAIL OU SENHA NÃO INSERIDO CORRETAMENTE", Toast.LENGTH_LONG)
+            .show()
+    }
+}
+
+fun validationEmail(email: String): Boolean {
+    return !(email.length > 255 || email == "")
 }

@@ -60,22 +60,22 @@ fun Form(
             }
         )
 
-//        Text(
-//            text = "Esqueci a senha",
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(end = 45.dp)
-//                .clickable {
-//                    navController?.navigate("forgot_password")
-//                },
-//            style = TextStyle(
-//                fontSize = 18.sp,
-//                fontWeight = FontWeight(600),
-//                color = Color(0xFFFF5C00),
-//                textDecoration = TextDecoration.Underline
-//            ),
-//            textAlign = TextAlign.End
-//        )
+        Text(
+            text = "Esqueci a senha",
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(end = 45.dp)
+                .clickable {
+                    navController?.navigate("insert_email")
+                },
+            style = TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight(600),
+                color = Color(0xFFFF5C00),
+                textDecoration = TextDecoration.Underline
+            ),
+            textAlign = TextAlign.End
+        )
     }
 }
 

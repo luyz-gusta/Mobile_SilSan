@@ -23,6 +23,7 @@ import com.example.avicultura_silsan.screen.ResetPasswordScreen
 import com.example.avicultura_silsan.screen.StartScreen
 import com.example.avicultura_silsan.ui.theme.AviculturaSilsanTheme
 import com.example.avicultura_silsan.view_model.AnuncioViewModel
+import com.example.avicultura_silsan.view_model.RetrieveAccountViewModel
 import com.example.avicultura_silsan.view_model.UserViewModel
 
 class MainActivity : ComponentActivity() {
@@ -39,6 +40,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     val anuncioViewModel = viewModel<AnuncioViewModel>()
                     val usuarioViewModel = viewModel<UserViewModel>()
+                    val retrieveAccountViewModel = viewModel<RetrieveAccountViewModel>()
 
                     NavHost(
                         navController = navController, startDestination = "start"
@@ -53,7 +55,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable("insert_email") {
-                            InsertEmailScreen()
+                            InsertEmailScreen(navController, lifecycleScope, retrieveAccountViewModel)
                         }
 
                         composable("insert_code") {

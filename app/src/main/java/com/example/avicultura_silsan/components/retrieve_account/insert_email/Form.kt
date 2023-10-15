@@ -22,10 +22,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.avicultura_silsan.R
 
-@Preview
 @Composable
 fun FormInsertEmail(
-    //emailState: String, onEmailChange: (String) -> Unit
+    emailState: String,
+    onEmailChange: (String) -> Unit
 ) {
     Column (
         modifier = Modifier
@@ -65,9 +65,9 @@ fun FormInsertEmail(
 
         TextBoxInsertEmail(
             label = "Email",
-            valor = "emailState",
+            valor = emailState,
             aoMudar = {
-                // onEmailChange(it)
+                onEmailChange(it)
             }
         )
     }
