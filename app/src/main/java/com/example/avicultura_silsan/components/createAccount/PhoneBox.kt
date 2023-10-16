@@ -1,8 +1,7 @@
-package com.example.avicultura_silsan.components.retrieve_account.insert_code
+package com.example.avicultura_silsan.components.createAccount
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -12,42 +11,35 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.avicultura_silsan.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TextFieldCode(label : String, valor: String, aoMudar: (String) -> Unit ) {
+fun PhoneBox(label: String, valor: String, aoMudar: (String) -> Unit) {
 
-    val maxLength = 4
+    val numericValue = valor.filter { it.isDigit() }
 
     OutlinedTextField(
-        value = valor,
+        value = numericValue,
         onValueChange = {
-            if(it.length <= maxLength){
+            if (it.length <= 11) {
                 aoMudar(it)
             }
         },
-        label={
-            Text(
-                text = label,
-                fontSize = 12.sp,
-                fontWeight = FontWeight(600),
-                color = Color(159,152,152,)
-            )
-        },
         modifier = Modifier
             .height(60.dp)
-            .width(150.dp),
+            .width(300.dp),
+        label = {
+            Text(
+                text = label,
+                color = Color.Black
+            )
+        },
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = colorResource(id = R.color.cinza ),
-            unfocusedBorderColor = colorResource(id = R.color.cinza )
+            focusedBorderColor = colorResource(id = R.color.cinza),
+            unfocusedBorderColor = colorResource(id = R.color.cinza)
         ),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         textStyle = TextStyle(
             color = Color.Black
         )

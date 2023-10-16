@@ -49,7 +49,7 @@ fun Form (
             }
         )
 
-        TextBox(
+        PhoneBox(
             label = "Telefone",
             valor = telefone,
             aoMudar = {

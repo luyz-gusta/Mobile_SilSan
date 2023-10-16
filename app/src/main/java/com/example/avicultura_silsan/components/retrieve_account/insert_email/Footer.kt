@@ -105,13 +105,25 @@ fun enviarEmail(
                         "O NÃO FOI DIGITADO OU NÃO É VÁLIDO",
                         Toast.LENGTH_LONG
                     ).show()
+                }else if(code == 404){
+                    Toast.makeText(
+                        context,
+                        "O EMAIL INFORMADO NÃO É VALIDO",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }else{
+                    Toast.makeText(
+                        context,
+                        "O SERVIDOR ESTÁ FORA DO AR, TENTE MAIS TARDE",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 Log.e("FORGOT PASSWORD", "forgot_password: ${response.errorBody()?.string()}")
             }
         }
     } else {
         Log.e("FORGOT PASSWORD - ERROR", "forgot_password")
-        Toast.makeText(context, "EMAIL OU SENHA NÃO INSERIDO CORRETAMENTE", Toast.LENGTH_LONG)
+        Toast.makeText(context, "EMAIL NÃO FOI INSERIDO OU FOI INSERIDO INCORRETAMENTE", Toast.LENGTH_LONG)
             .show()
     }
 }
